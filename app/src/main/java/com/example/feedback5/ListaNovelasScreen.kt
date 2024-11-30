@@ -1,38 +1,65 @@
 package com.example.feedback5
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @Composable
-fun ListaNovelasScreen(navController: NavController) {
-    val novelasMock = listOf(
-        Novela(1, "Cien años de soledad", "Gabriel García Márquez", "1967", "Un clásico de la literatura latinoamericana."),
-        Novela(2, "Don Quijote de la Mancha", "Miguel de Cervantes", "1605", "Un viaje épico por la imaginación."),
-        Novela(3, "Orgullo y prejuicio", "Jane Austen", "1813", "Un relato de amor y desafíos sociales.")
-    )
+fun ListaNovelasScreen(
+    navController: NavController,
+    viewModel: NovelasViewModel = viewModel()
+) {
+    val novelas = viewModel.novelas.collectAsState().value
 
-    LazyColumn {
-        items(novelasMock) { novela ->
-            NovelaItem(novela = novela) {
-                navController.navigate("detalleNovela/${novela.id}")
+    Column {
+        // Botón para añadir novelas
+        Button(
+            onClick = {
+                val nuevaNovela = Novela(
+                    id = novelas.size + 1,
+                    nombre = "Nueva Novela",
+                    autor = "Autor Desconocido",
+                    fecha = "2024",
+                    sinopsis = "Sinopsis de ejemplo"
+                )
+                viewModel.añadirNovela(nuevaNovela)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text("Añadir Novela")
+        }
+
+        LazyColumn {
+            items(novelas) { novela ->
+                NovelaItem(
+                    novela = novela,
+                    onFavoritoClick = { viewModel.toggleFavorito(novela.id) },
+                    onEliminarClick = { viewModel.eliminarNovela(novela.id) },
+                    onClick = { navController.navigate("detalleNovela/${novela.id}") }
+                )
             }
         }
     }
 }
 
 @Composable
-fun NovelaItem(novela: Novela, onClick: () -> Unit) {
+fun NovelaItem(
+    novela: Novela,
+    onFavoritoClick: () -> Unit,
+    onEliminarClick: () -> Unit,
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,6 +70,14 @@ fun NovelaItem(novela: Novela, onClick: () -> Unit) {
             Text(text = novela.nombre, style = MaterialTheme.typography.titleLarge)
             Text(text = "Autor: ${novela.autor}", style = MaterialTheme.typography.bodyMedium)
             Text(text = "Fecha: ${novela.fecha}", style = MaterialTheme.typography.bodyMedium)
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                TextButton(onClick = onFavoritoClick) {
+                    Text(if (novela.esFavorita) "❤️ Favorito" else "🤍 Favorito")
+                }
+                TextButton(onClick = onEliminarClick) {
+                    Text("🗑 Eliminar")
+                }
+            }
         }
     }
 }

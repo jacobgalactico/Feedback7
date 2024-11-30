@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.feedback5"
-    compileSdk = 34
+    compileSdk = 35 // Actualiza a 35
 
     defaultConfig {
         applicationId = "com.example.feedback5"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35 // También puedes actualizar el targetSdk a 35 para nuevas optimizaciones de Android
         versionCode = 1
         versionName = "1.0"
 
@@ -38,6 +38,7 @@ android {
         compose = true
     }
 }
+
 
 dependencies {
 
