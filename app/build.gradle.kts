@@ -52,6 +52,13 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.datastore.preferences)
+    implementation(libs.datastore.core)
+    implementation(libs.serialization.json)
+    implementation(libs.serialization.core)
+    implementation(libs.serialization.protobuf)
+    implementation(libs.serialization.cbor)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

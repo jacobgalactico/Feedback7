@@ -13,9 +13,8 @@ import androidx.navigation.NavController
 @Composable
 fun AñadirNovelaScreen(
     navController: NavController,
-    viewModel: NovelasViewModel = viewModel()
+    viewModel: NovelasViewModel
 ) {
-    // Variables para los campos de texto
     var nombre by remember { mutableStateOf("") }
     var autor by remember { mutableStateOf("") }
     var fecha by remember { mutableStateOf("") }
@@ -26,52 +25,42 @@ fun AñadirNovelaScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Campo para el nombre de la novela
         TextField(
             value = nombre,
             onValueChange = { nombre = it },
             label = { Text("Nombre de la novela") },
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
-
-        // Campo para el autor
         TextField(
             value = autor,
             onValueChange = { autor = it },
             label = { Text("Autor") },
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
-
-        // Campo para la fecha
         TextField(
             value = fecha,
             onValueChange = { fecha = it },
             label = { Text("Fecha") },
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
-
-        // Campo para la sinopsis
         TextField(
             value = sinopsis,
             onValueChange = { sinopsis = it },
             label = { Text("Sinopsis") },
             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
         )
-
-        // Botón para agregar la novela
         Button(
             onClick = {
-                // Validar que todos los campos estén llenos
                 if (nombre.isNotEmpty() && autor.isNotEmpty() && fecha.isNotEmpty() && sinopsis.isNotEmpty()) {
                     val nuevaNovela = Novela(
-                        id = (viewModel.novelas.value.size + 1),
+                        id = viewModel.novelas.value.size + 1,
                         nombre = nombre,
                         autor = autor,
                         fecha = fecha,
                         sinopsis = sinopsis
                     )
                     viewModel.añadirNovela(nuevaNovela)
-                    navController.navigate("listaNovelas") // Regresar a la lista de novelas
+                    navController.navigate("listaNovelas")
                 }
             },
             modifier = Modifier.fillMaxWidth()

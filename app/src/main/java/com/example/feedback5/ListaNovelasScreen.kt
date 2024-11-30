@@ -24,14 +24,7 @@ fun ListaNovelasScreen(
         // Botón para añadir novelas
         Button(
             onClick = {
-                val nuevaNovela = Novela(
-                    id = novelas.size + 1,
-                    nombre = "Nueva Novela",
-                    autor = "Autor Desconocido",
-                    fecha = "2024",
-                    sinopsis = "Sinopsis de ejemplo"
-                )
-                viewModel.añadirNovela(nuevaNovela)
+                navController.navigate("añadirNovela") // Navega a la pantalla de añadir novela
             },
             modifier = Modifier
                 .fillMaxWidth()
