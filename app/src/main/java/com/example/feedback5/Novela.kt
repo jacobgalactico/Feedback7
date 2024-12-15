@@ -6,5 +6,7 @@ data class Novela(
     val autor: String,
     val fecha: String,
     val sinopsis: String,
+    val latitud: Double? = null,
+    val longitud: Double? = null,
     var esFavorita: Boolean = false
 )

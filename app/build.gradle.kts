@@ -53,6 +53,17 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
 
+    implementation("com.google.android.gms:play-services-location:21.0.1") // Ubicación
+    implementation("com.google.android.gms:play-services-maps:18.2.0")    // Google Maps
+    implementation("com.google.maps.android:maps-compose:4.2.0")          // Maps en Compose
+    implementation("com.google.accompanist:accompanist-permissions:0.31.0-alpha") // Permisos
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation("com.google.accompanist:accompanist-permissions:0.31.0-alpha")
+
+
+
+
+
     implementation(libs.datastore.preferences)
     implementation(libs.datastore.core)
     implementation(libs.serialization.json)
