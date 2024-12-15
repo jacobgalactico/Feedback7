@@ -1,6 +1,6 @@
 # Novelas App
 
-Link: https://github.com/jacobgalactico/Feedback5.git
+Link: [https://github.com/jacobgalactico/Feedback5.git](https://github.com/jacobgalactico/Feedback7.git)
 
 Una aplicación de gestión de novelas desarrollada con **Jetpack Compose** y **Android DataStore** para el almacenamiento persistente de datos.
 
